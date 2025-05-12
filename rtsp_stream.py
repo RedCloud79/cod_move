@@ -18,7 +18,8 @@ class CameraStreamFactory(GstRtspServer.RTSPMediaFactory):
         self.launch_string = (
             f'appsrc name=source is-live=true block=true format=GST_FORMAT_TIME '
             f'caps=video/x-raw,format=BGR,width={width},height={height},framerate={fps}/1 ! '
-            'videoconvert ! x264enc tune=zerolatency bitrate=500 speed-preset=superfast ! '
+            'videoconvert ! video/x-raw,format=I420 ! '
+            'x264enc tune=zerolatency bitrate=500 speed-preset=superfast profile=main ! '
             'rtph264pay name=pay0 pt=96'
         )
 
